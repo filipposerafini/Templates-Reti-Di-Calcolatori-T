@@ -17,7 +17,6 @@
 #include <netdb.h>
 
 #define DIM_BUFF 100
-#define MAX_LEN 32
 #define max(a,b) ((a) > (b) ? (a) : (b))
 
 int conta_file (char *name) {
@@ -45,10 +44,10 @@ void gestore(int signo) {
 
 int main(int argc, char **argv) {
     struct sockaddr_in cliaddr, servaddr;
-    int  port, listenfd, connfd, udpfd, nready, maxfdp1, len, result;
+    int  port, listenfd, connfd, udpfd, nready, maxfdp1, len;
     const int on = 1;
     fd_set rset;
-    char zero=0, buff[DIM_BUFF], request[MAX_LEN];
+    char zero=0, buff[DIM_BUFF];
 
     // controllo argomenti
     if (argc != 2) {
@@ -61,7 +60,14 @@ int main(int argc, char **argv) {
             exit(EXIT_FAILURE);
         }
     }
+
     printf("[%s]: Avvio\n", argv[0]);
+
+    // inizializzazione indirizzo server e bind
+    memset ((char *)&servaddr, 0, sizeof(servaddr));
+    servaddr.sin_family = AF_INET;
+    servaddr.sin_addr.s_addr = INADDR_ANY;
+    servaddr.sin_port = htons(port);
 
     // creazione socket TCP
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -70,11 +76,6 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
     printf("[%s - TCP]: Creata socket %d\n", argv[0], listenfd);
-
-    memset ((char *)&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = INADDR_ANY;
-    servaddr.sin_port = htons(port);
 
     if (setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
         perror("set opzioni socket TCP");
@@ -95,36 +96,31 @@ int main(int argc, char **argv) {
     printf("[%s - TCP]: Listen ok\n", argv[0]);
 
     // creazione socket UDP
-    udpfd=socket(AF_INET, SOCK_DGRAM, 0);
+    udpfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (udpfd < 0)  {
         perror("creazione socket UDP");
         exit(EXIT_FAILURE);
     }
     printf("[%s - UDP]: Creata socket %d\n", argv[0], udpfd);
 
-    memset ((char *)&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = INADDR_ANY;
-    servaddr.sin_port = htons(port);
-
     if (setsockopt(udpfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)  {
         perror("set opzioni socket UDP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - UDP]: Opzioni settate\n", argv[0]);
+    printf("[%s - UDP]: Settaggio opzioni ok\n", argv[0]);
 
     if (bind(udpfd,(struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
         perror("bind socket UDP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - UDP]: bind effettuata\n", argv[0]);
+    printf("[%s - UDP]: Bind socket ok\n", argv[0]);
 
     // handler
     signal(SIGCHLD, gestore);
 
     // pulizia e settaggio maschera
     FD_ZERO(&rset);
-    maxfdp1=max(listenfd, udpfd)+1;
+    maxfdp1 = max(listenfd, udpfd) + 1;
     printf("[%s]: settaggio maschera\n", argv[0]);
 
     for (;;) {

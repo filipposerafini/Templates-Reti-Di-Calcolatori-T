@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <rpc/rpc.h>
-// TODO #include "file.h"
+#include "RPC_xFile.h"
 
 // stato server
 static int inizializzato = 0;

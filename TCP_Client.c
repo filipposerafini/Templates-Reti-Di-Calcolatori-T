@@ -15,17 +15,6 @@
 
 #define DIM_BUFF 256
 
-bool checkPortVal(char *a)  {
-    int aux = 0;
-    while( a[aux]!= '\0' )  {
-        if((a[aux] < '0') || (a[aux] > '9'))  {
-            return false;
-        }
-        aux++;
-    }
-    return true;
-}
-
 int main(int argc, char *argv[]) {
     struct hostent *host;
     struct sockaddr_in servaddr;
@@ -39,14 +28,12 @@ int main(int argc, char *argv[]) {
     if(argc != 3) {
         printf("Usage: %s serverAddress serverPort\n", argv[0]);
         exit(EXIT_FAILURE);
-    }
-
-    if(!checkPortVal(argv[2]))  {
-        printf("Secondo argomento non intero\n");
-        printf("Usage: %s serverAddress serverPort\n", argv[0]);
-        exit(EXIT_FAILURE);
-    } else  {
+    } else {
         port = atoi(argv[2]);
+        if (port < 1024 || port > 65535)  {
+            printf("Usage: %s serverAddress serverPort>1024\n", argv[0]);
+            exit(EXIT_FAILURE);
+        }
     }
 
     // inizializzazione indirizzo server
@@ -60,7 +47,7 @@ int main(int argc, char *argv[]) {
     servaddr.sin_addr.s_addr=((struct in_addr*) (host->h_addr))->s_addr;
     servaddr.sin_port = htons(atoi(argv[2]));
 
-    printf("\t----------\nRCHIESTA, EOF per terminare: ");
+    printf("\t----------\t----------\nRICHIESTA, EOF per terminare: ");
     while (gets(richiesta)) {
 
         // creazione socket stream
@@ -79,7 +66,7 @@ int main(int argc, char *argv[]) {
 
         // TODO LOGICA DEL CLIENT
 
-        printf("\t----------\nRICHIESTA, EOF per terminare: ");
+        printf("\t----------\t----------\nRICHIESTA, EOF per terminare: ");
     }
 
     printf("[%s]: Termino\n", argv[0]);

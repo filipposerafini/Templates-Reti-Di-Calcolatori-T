@@ -4,15 +4,14 @@
 
 #include <stdio.h>
 #include <rpc/rpc.h>
-// TODO #include "file.h"
+#include "RPC_xFile.h"
 
 void main (int argc, char *argv[]) {
     char *host;
     CLIENT *cl;
 
     // TODO VARIABILI PER LA LOGICA DEL PROGRAMMA
-    int *ris;
-    char command[256];
+    char command[32];
 
     // controllo argomenti
     if (argc != 2)	{
@@ -27,7 +26,7 @@ void main (int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    printf("\t----------\nCMD1 - FUNZIONE1, EOF per terminare: ");
+    printf("\t----------\t----------\nCMD - FUNZIONE, EOF per terminare: ");
     while (gets(command)) {
 
         if (strcmp(command, "CMD1") == 0) {
@@ -51,7 +50,7 @@ void main (int argc, char *argv[]) {
             printf("Errore!\n");
         }
 
-        printf("Inserire:\nCMD1 - FUN1\t^D per terminare: ");
+        printf("\t----------\t----------\nCMD - FUNZIONE, EOF per terminare: ");
     }
 
     clnt_destroy(cl);

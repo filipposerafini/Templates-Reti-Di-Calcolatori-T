@@ -14,38 +14,24 @@
 #include <fcntl.h>
 #include <stdbool.h>
 
-// dichiarazione eventuali funzioni
-bool checkPortVal(char *a)  {
-    int aux = 0;
-    while( a[aux]!= '\0' )  {
-        if((a[aux] < '0') || (a[aux] > '9'))  {
-            return false;
-        }
-        aux++;
-    }
-
-    return true;
-}
-
 int main(int argc, char **argv) {
     struct hostent *host;
     struct sockaddr_in clientaddr, servaddr;
     int  sd, len, port;
     
-    // controllo del numero di argomenti
+    // controllo argomenti
     if (argc != 3) {
-        printf("Using: %s serverAddress serverPort\n", argv[0]);
+        printf("Usage: %s serverAddress serverPort\n", argv[0]);
         exit(EXIT_FAILURE);
+    } else {
+        port = atoi(argv[2]);
+        if (port < 1024 || port > 65535)  {
+            printf("Usage: %s serverAddress serverPort>1024\n", argv[0]);
+            exit(EXIT_FAILURE);
+        }
     }
 
-    // controllo della porta inserita
-    if(!checkPortVal(argv[2]))  {
-        printf("Using: %s serverAddress serverPort\n", argv[0]);
-        perror("Second value must be an integer\n");
-        exit(EXIT_FAILURE);
-    } else  {
-        port = atoi(argv[2]);
-    }
+    printf("[%s]: Avvio\n", argv[0]);
 
     // inizializzazione indirizzo client
     memset((char *)&clientaddr, 0, sizeof(struct sockaddr_in));
@@ -60,16 +46,14 @@ int main(int argc, char **argv) {
     if (host == NULL) {
         printf("%s non trovato in /etc/hosts\n", argv[1]);
         exit(EXIT_FAILURE);
-    } else  {
+    } else {
         servaddr.sin_addr.s_addr = ((struct in_addr *) (host->h_addr))->s_addr;
         servaddr.sin_port = htons(port);
     }
 
-    printf("[%s]: Avvio", argv[0]);
-
     // creazione socket
     sd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sd < 0)  {
+    if (sd < 0) {
         perror("creazione socket");
         exit(EXIT_FAILURE);
     }
