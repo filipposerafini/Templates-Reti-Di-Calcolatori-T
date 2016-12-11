@@ -165,7 +165,7 @@ int main(int argc, char **argv) {
 
         // richieste UDP
         if (FD_ISSET(udpfd, &rset)) {
-            printf("[%s]: Ricevuta richiesta UDP\n");
+            printf("[%s]: Ricevuta richiesta UDP\n", argv[0]);
 
             // TODO LOGICA GESTIONE RICHISTE UDP
 
