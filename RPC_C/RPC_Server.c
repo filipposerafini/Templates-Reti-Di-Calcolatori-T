@@ -9,7 +9,6 @@
 #include <rpc/rpc.h>
 #include "RPC_xFile.h"
 
-// stato server
 static int inizializzato = 0;
 
 void inizializza() {
