@@ -10,7 +10,6 @@ void main (int argc, char *argv[]) {
     char *host;
     CLIENT *cl;
 
-    // TODO VARIABILI PER LA LOGICA DEL PROGRAMMA
     char command[32];
 
     // controllo argomenti
@@ -26,31 +25,33 @@ void main (int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    printf("\t----------\t----------\nCMD - FUNZIONE, EOF per terminare: ");
+    printf("-----------------------------------\nCMD - FUNZIONE, EOF per terminare: ");
     while (gets(command)) {
 
-        if (strcmp(command, "CMD1") == 0) {
+        if (!strcmp(command, "CMD")) {
 
-            // TODO LOGICA CLIENT
+            int *res;
+
+            // TODO LOGICA FUNZIONE
 
             // Invocazione remota
             // ris = funzione_uno(&input, cl);
 
-            if (ris == NULL)	{
+            if (res == NULL) {
                 clnt_perror(cl, host);
                 exit(EXIT_FAILURE);
 
-            } else if (*ris < 0) {
+            } else if (*res < 0) {
                 // Gestione Problemi
 
             } else {
                 // Gestione Successo
             }
         } else {
-            printf("Errore!\n");
+            printf("Comando non valido\n");
         }
 
-        printf("\t----------\t----------\nCMD - FUNZIONE, EOF per terminare: ");
+        printf("-----------------------------------\nCMD - FUNZIONE, EOF per terminare: ");
     }
 
     clnt_destroy(cl);

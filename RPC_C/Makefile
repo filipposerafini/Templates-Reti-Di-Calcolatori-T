@@ -1,5 +1,4 @@
 .PHONY:all
-
 all: client server 
 
 gen:
@@ -12,4 +11,4 @@ server: gen
 	gcc RPC_Server.c RPC_xFile_svc.c RPC_xFile_xdr.c -o server
 
 clean:
-	rm server client RPC_xFile_svc.c RPC_xFile_xdr.c RPC_xFile_clnt.c
+	rm server client RPC_xFile.h RPC_xFile_svc.c RPC_xFile_xdr.c RPC_xFile_clnt.c

@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    printf("[%s]: Avvio\n", argv[0]);
+    printf("[Stream_Client]: Avvio\n");
 
     // inizializzazione indirizzo server
     memset((char *)&servaddr, 0, sizeof(struct sockaddr_in));
@@ -51,18 +51,18 @@ int main(int argc, char *argv[]) {
         perror("apertura socket");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Creata la socket %d\n", argv[0], sd);
+    printf("[Stream_Client]: Creata la socket %d\n", sd);
 
     // bind della socket
     if (connect(sd,(struct sockaddr *) &servaddr, sizeof(struct sockaddr)) < 0) {
         perror("connect");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Connect ok\n", argv[0]);
+    printf("[Stream_Client]: Connect ok\n");
 
     // TODO LOGICA DEL PROGRAMMA
 
     close(sd);
-    printf("[%s]: Termino\n", argv[0]);
+    printf("[Stream_Client]: Termino\n");
     exit(EXIT_SUCCESS);
 }

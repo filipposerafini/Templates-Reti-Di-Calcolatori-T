@@ -49,7 +49,7 @@ public class UDP_Unicast_Client {
 
         // standard input per l'interazione con l'utente
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+        System.out.print("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
 
         try {
             ByteArrayOutputStream boStream = null;
@@ -70,7 +70,7 @@ public class UDP_Unicast_Client {
                 } catch (Exception e) {
                     System.out.println("Problemi durante l'interazione con l'utente: ");
                     e.printStackTrace();
-                    System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+                    System.out.print("\n-------------------------------------------\nRICHIESTA, EOF per terminare: ");
                     continue;
                 }
 
@@ -89,7 +89,7 @@ public class UDP_Unicast_Client {
                 } catch (IOException e) {
                     System.out.println("Problemi durante l'invio della richiesta: ");
                     e.printStackTrace();
-                    System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+                    System.out.print("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
                     continue;
                 }
 
@@ -101,7 +101,7 @@ public class UDP_Unicast_Client {
                 } catch (IOException e) {
                     System.out.println("Problemi durante la ricezione della risposta: ");
                     e.printStackTrace();
-                    System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+                    System.out.print("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
                     continue;
                 }
 
@@ -117,16 +117,16 @@ public class UDP_Unicast_Client {
                 } catch (SocketTimeoutException ste) {
                     System.out.println("Timeout scattato: ");
                     ste.printStackTrace();
-                    System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+                    System.out.print("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
                     continue;
 
                 } catch (IOException e) {
                     System.out.println("Problemi durante la lettura della risposta: ");
                     e.printStackTrace();
-                    System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+                    System.out.print("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
                     continue;
                 }
-                System.out.print("\t----------\nRICHIESTA, EOF per terminare: ");
+                System.out.print("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
             }
         }
         catch (Exception e) {

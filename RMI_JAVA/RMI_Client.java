@@ -27,12 +27,11 @@ public class RMI_Client {
         try{
             String completeName = "//" + registryHost + ":" + REGISTRYPORT + "/" + serviceName;
             RMI_InterfaceFile serverRMI = (RMI_InterfaceFile) Naming.lookup(completeName);
-            System.out.println("ClientRMI: Service \"" + serviceName + "\" connected");
+            System.out.println("[RMI_Client]: Service \"" + serviceName + "\" connected");
 
             // TODO LOGICA CLIENT
 
         }	catch(Exception e){
-            System.err.println("ClientRMI: " + e.getMessage());
             e.printStackTrace();
             System.exit(1);
         }

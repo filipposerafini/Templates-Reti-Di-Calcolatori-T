@@ -2,9 +2,7 @@
 // 0000723678
 // RMI_Server.java
 
-import java.rmi.Naming;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+import java.rmi.*;
 
 public class RMI_Server extends UnicastRemoteObject implements RMI_InterfaceFile {
 	private static final long serialVersionUID = 1L;
@@ -28,10 +26,9 @@ public class RMI_Server extends UnicastRemoteObject implements RMI_InterfaceFile
 		try{
 			RMI_Server serverRMI = new RMI_Server();
 			Naming.rebind(completeName, serverRMI);
-			System.out.println("RMI service: Service \"" + serviceName + "\" registered");
+			System.out.println("[RMI_Server]: Service \"" + serviceName + "\" registered");
 		}
 		catch(Exception e){
-			System.err.println("Server RMI \"" + serviceName + "\": " + e.getMessage());
 			e.printStackTrace();
 			System.exit(1);
 		}

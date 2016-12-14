@@ -1,14 +1,12 @@
 /* Filippo Serafini 0000723678 */
 
-const DIM = 5;
-
 struct Input {
     char a;
     int b;
 };
 
 struct Output {
-    char a[DIM];
+    string s <256>;
 };
 
 program PROGRAM {

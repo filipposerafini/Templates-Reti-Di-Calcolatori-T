@@ -9,7 +9,11 @@
 #include <rpc/rpc.h>
 #include "RPC_xFile.h"
 
+// TODO DEFINIZIONE STRUTTURA DATI
+
 static int inizializzato = 0;
+
+// TODO STAMPA
 
 void inizializza() {
     if (inizializzato == 1)
@@ -18,15 +22,7 @@ void inizializza() {
     // TODO INIZIALIZZAZIONE STRUTTURA DATI
 
     inizializzato = 1;
-    printf("Terminata inizializzazione struttura dati!\n");
+    print("Terminata inizializzazione struttura dati!\n");
 }
 
-int * funzione_uno_1_svc(int *input, struct svc_req *rqstp) {
-    static int result;
-    result = -1;
-    inizializza();
-
-    // TODO LOGICA DELLA FUNZIONE
-
-    return (&result);
-}
+// TODO IMPLEMENTAZIONE FUNZIONI

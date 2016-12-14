@@ -16,8 +16,6 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-#define BUFF_SIZE 1024
-
 void gestore(int signo) {
     int stato;
     printf("Esecuzione gestore di SIGCHLD\n");
@@ -31,11 +29,8 @@ int main(int argc, char **argv) {
     int  listenfd, connfd;
     int port, len;
 
-    // TODO VARIABILI PER LA LOGICA DEL PROGRAMMA
-    char buffer[BUFF_SIZE];
-
     // controllo argomenti
-    if(argc != 2)	{
+    if (argc != 2)	{
         printf("Usage: %s port\n", argv[0]);
         exit(EXIT_FAILURE);
     } else {
@@ -45,15 +40,15 @@ int main(int argc, char **argv) {
             exit(EXIT_FAILURE);
         }
     }
-    printf("[%s]: Avvio\n", argv[0]);
+    printf("[TCP_Server]: Avvio\n");
 
     // creazione socket
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
     if (listenfd < 0) {
-        perror("creazione socket ");
+        perror("creazione socket");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Creata socket %d\n", argv[0], listenfd);
+    printf("[TCP_Server]: Creata socket %d\n", listenfd);
 
     memset ((char *)&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
@@ -64,27 +59,27 @@ int main(int argc, char **argv) {
         perror("set opzioni socket");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Settaggio opzioni ok\n", argv[0]);
+    printf("[TCP_Server]: Settaggio opzioni ok\n");
 
     if (bind(listenfd,(struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
-        perror("bind socket d'ascolto");
+        perror("bind socket");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Bind socket ok\n", argv[0]);
+    printf("[TCP_Server]: Bind socket ok\n");
 
     if (listen(listenfd, 5) < 0) {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Listen ok\n", argv[0]);
+    printf("[TCP_Server]: Listen ok\n");
 
     // handler
     signal(SIGCHLD, gestore);
 
     for(;;) {
-        printf("[%s]: In attesa di richieste\n", argv[0]);
+        printf("[TCP_Server]: In attesa di richieste\n");
         len=sizeof(cliaddr);
-        if((connfd=accept(listenfd,(struct sockaddr *)&cliaddr,&len)) < 0)  {
+        if ((connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&len)) < 0)  {
             if (errno == EINTR)
                 continue;
             else {
@@ -94,16 +89,16 @@ int main(int argc, char **argv) {
         }
         if (fork() == 0)  {
             close(listenfd);
-            printf("[%s - CHILD]: pid = %i\n", argv[0], getpid());
+            printf("[TCP_Server_CHILD]: Pid = %i\n", getpid());
 
             //TODO LOGICA SERVER
 
-            printf("[%s - CHILD]: Chiudo connessione e termino\n", argv[0], getpid());
+            printf("[TCP_Server_CHILD]: Chiudo connessione e termino\n", getpid());
             close(connfd);
             exit(EXIT_SUCCESS);
         }
         close(connfd);
     }
-    printf("[%s]: Termino\n", argv[0]);
+    printf("[TCP_Server]: Termino\n");
     exit(EXIT_SUCCESS);
 }

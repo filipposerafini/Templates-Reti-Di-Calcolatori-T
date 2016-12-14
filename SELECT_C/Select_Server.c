@@ -16,7 +16,6 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-#define DIM_BUFF 100
 #define max(a,b) ((a) > (b) ? (a) : (b))
 
 int conta_file (char *name) {
@@ -47,7 +46,7 @@ int main(int argc, char **argv) {
     int  port, listenfd, connfd, udpfd, nready, maxfdp1, len;
     const int on = 1;
     fd_set rset;
-    char zero=0, buff[DIM_BUFF];
+    char zero=0;
 
     // controllo argomenti
     if (argc != 2) {
@@ -61,7 +60,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    printf("[%s]: Avvio\n", argv[0]);
+    printf("[Select_Server]: Avvio\n");
 
     // inizializzazione indirizzo server e bind
     memset ((char *)&servaddr, 0, sizeof(servaddr));
@@ -75,25 +74,25 @@ int main(int argc, char **argv) {
         perror("crazione socket TCP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - TCP]: Creata socket %d\n", argv[0], listenfd);
+    printf("[Select_Server_TCP]: Creata socket %d\n", listenfd);
 
     if (setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
         perror("set opzioni socket TCP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - TCP]: Settaggio opzioni ok\n", argv[0]);
+    printf("[Select_Server_TCP]: Settaggio opzioni ok\n");
 
     if (bind(listenfd,(struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
         perror("bind socket TCP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - TCP]: Bind socket ok\n", argv[0]);
+    printf("[Select_Server_TCP]: Bind socket ok\n");
 
     if (listen(listenfd, 5) < 0)  {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - TCP]: Listen ok\n", argv[0]);
+    printf("[Select_Server_TCP]: Listen ok\n");
 
     // creazione socket UDP
     udpfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -101,19 +100,19 @@ int main(int argc, char **argv) {
         perror("creazione socket UDP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - UDP]: Creata socket %d\n", argv[0], udpfd);
+    printf("[Select_Server_UDP]: Creata socket %d\n", udpfd);
 
     if (setsockopt(udpfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)  {
         perror("set opzioni socket UDP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - UDP]: Settaggio opzioni ok\n", argv[0]);
+    printf("[Select_Server_UDP]: Settaggio opzioni ok\n");
 
     if (bind(udpfd,(struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
         perror("bind socket UDP");
         exit(EXIT_FAILURE);
     }
-    printf("[%s - UDP]: Bind socket ok\n", argv[0]);
+    printf("[Select_Server_UDP]: Bind socket ok\n");
 
     // handler
     signal(SIGCHLD, gestore);
@@ -121,7 +120,7 @@ int main(int argc, char **argv) {
     // pulizia e settaggio maschera
     FD_ZERO(&rset);
     maxfdp1 = max(listenfd, udpfd) + 1;
-    printf("[%s]: settaggio maschera\n", argv[0]);
+    printf("[Select_Server]: settaggio maschera\n");
 
     for (;;) {
         FD_SET(listenfd, &rset);
@@ -138,7 +137,7 @@ int main(int argc, char **argv) {
 
         // richieste TCP
         if (FD_ISSET(listenfd, &rset)) {
-            printf("[%s]: Ricevuta richiesta TCP\n", argv[0]);
+            printf("[Select_Server]: Ricevuta richiesta TCP\n");
 
             len = sizeof(struct sockaddr_in);
             if((connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&len)) < 0)  {
@@ -150,13 +149,13 @@ int main(int argc, char **argv) {
                 }
             }
 
-            if (fork() == 0)  { 
+            if (fork() == 0) { 
                 close(listenfd);
-                printf("[%s - CHILD]: Pid=%i\n", argv[0], getpid());
+                printf("[Select_Server_CHILD]: Pid=%i\n", getpid());
 
                 // TODO LOGICA GESTIONE RICHIESTE TCP
 
-                printf("[%s - CHILD]: Chiudo connessione e termino\n", argv[0], getpid());
+                printf("[Select_Server_CHILD]: Chiudo connessione e termino\n", getpid());
                 close(connfd);
                 exit(EXIT_SUCCESS);
             }
@@ -165,12 +164,12 @@ int main(int argc, char **argv) {
 
         // richieste UDP
         if (FD_ISSET(udpfd, &rset)) {
-            printf("[%s]: Ricevuta richiesta UDP\n", argv[0]);
+            printf("[Select_Server]: Ricevuta richiesta UDP\n");
 
             // TODO LOGICA GESTIONE RICHISTE UDP
 
         }
     }
-    printf("[%s]: Termino", argv[0]);
+    printf("[Select_Server]: Termino\n");
     exit(EXIT_FAILURE);
 }

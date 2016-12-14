@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    printf("[%s]: Avvio\n", argv[0]);
+    printf("[Datagram_Client]: Avvio\n");
 
     // inizializzazione indirizzo client
     memset((char *)&clientaddr, 0, sizeof(struct sockaddr_in));
@@ -57,18 +57,18 @@ int main(int argc, char **argv) {
         perror("creazione socket");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Creata socket %d\n", argv[0], sd);
+    printf("[Datagram_Client]: Creata socket %d\n", sd);
     
     // bind della socket
         if (bind(sd,(struct sockaddr *) &clientaddr, sizeof(clientaddr)) < 0)  {
         perror("bind socket");
         exit(EXIT_FAILURE);
     }
-    printf("[%s]: Bind effettuato alla porta %i\n", argv[0], clientaddr.sin_port);
+    printf("[Datagram_Client]: Bind effettuato\n");
 
     // TODO LOGICA DEL PROGRAMMA
 
     close(sd);
-    printf("[%s]: Termino\n", argv[0]);
+    printf("[Datagram_Client]: Termino\n");
     exit(EXIT_SUCCESS);
 }

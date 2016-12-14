@@ -2,8 +2,10 @@
 // 0000723678
 // RMI_InterfaceFile.java
 
-public interface RMI_InterfaceFile extends java.rmi.Remote {
+import java.rmi.*;
+
+public interface RMI_InterfaceFile extends Remote {
 	
-	// TODO funzione(argomenti) throws java.rmi.RemoteException;
+	// TODO funzione(argomenti) throws RemoteException;
 
 }
