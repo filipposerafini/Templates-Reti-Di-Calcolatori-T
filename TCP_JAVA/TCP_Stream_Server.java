@@ -99,10 +99,6 @@ class ServerThread extends Thread {
         DataInputStream inSock;
         DataOutputStream outSock;
 
-        // TODO VARIABILI PER LA LOGICA DEL PROGRAMMA
-        String richiesta = null;
-        String risposta = null;
-
         try {
             inSock = new DataInputStream(clientSocket.getInputStream());
             outSock = new DataOutputStream(clientSocket.getOutputStream());
@@ -115,11 +111,13 @@ class ServerThread extends Thread {
 
         try	{
             System.out.println("[ServerThread]: Avvio");
-            richiesta = inSock.readUTF();
-            System.out.println("Ricevuto: " + richiesta);
-            // TODO ELABORAZIONE RICHIESTA ED INVIO RISPOSTA
-            outSock.writeUTF(risposta);
-            System.out.println("Inviato: " + risposta);
+
+            while (!clientSocket.isInputShutdown()) {
+
+                // TODO LOGICA DEL SERVER
+
+            } 
+
             System.out.println("[ServerThread]: Termino");
 
         } catch (Exception e) {

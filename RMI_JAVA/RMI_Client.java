@@ -29,7 +29,17 @@ public class RMI_Client {
             RMI_InterfaceFile serverRMI = (RMI_InterfaceFile) Naming.lookup(completeName);
             System.out.println("[RMI_Client]: Service \"" + serviceName + "\" connected");
 
-            // TODO LOGICA CLIENT
+            String command;
+            System.out.print("\n----------------------------------------\nCMD - FUNZIONE, EOF per terminare: ");
+            while ((command = stdIn.readLine()) != null) {
+                if (command.equals("CMD")) {
+
+                    // TODO LOGICA CLIENT
+
+                } else 
+                    System.out.println("Comando non valido");
+                System.out.print("\n----------------------------------------\nCMD - FUNZIONE, EOF per terminare: ");
+            }
 
         }	catch(Exception e){
             e.printStackTrace();

@@ -8,7 +8,7 @@ public class RMI_Server extends UnicastRemoteObject implements RMI_InterfaceFile
 	private static final long serialVersionUID = 1L;
 
 	// costruttore
-	public RMI_Server() throws RemoteException	{
+	public RMI_Server() throws RemoteException {
 		super();
 	}
 

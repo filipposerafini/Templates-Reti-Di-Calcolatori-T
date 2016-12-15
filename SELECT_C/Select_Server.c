@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 
     // creazione socket TCP
     listenfd = socket(AF_INET, SOCK_STREAM, 0);
-    if (listenfd < 0)  {
+    if (listenfd < 0) {
         perror("crazione socket TCP");
         exit(EXIT_FAILURE);
     }
@@ -96,13 +96,13 @@ int main(int argc, char **argv) {
 
     // creazione socket UDP
     udpfd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (udpfd < 0)  {
+    if (udpfd < 0) {
         perror("creazione socket UDP");
         exit(EXIT_FAILURE);
     }
     printf("[Select_Server_UDP]: Creata socket %d\n", udpfd);
 
-    if (setsockopt(udpfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)  {
+    if (setsockopt(udpfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0) {
         perror("set opzioni socket UDP");
         exit(EXIT_FAILURE);
     }
@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
             printf("[Select_Server]: Ricevuta richiesta TCP\n");
 
             len = sizeof(struct sockaddr_in);
-            if((connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&len)) < 0)  {
+            if((connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&len)) < 0) {
                 if (errno == EINTR)
                     continue;
                 else {

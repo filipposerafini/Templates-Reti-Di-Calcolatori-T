@@ -60,13 +60,21 @@ int main(int argc, char **argv) {
     printf("[Datagram_Client]: Creata socket %d\n", sd);
     
     // bind della socket
-        if (bind(sd,(struct sockaddr *) &clientaddr, sizeof(clientaddr)) < 0)  {
+        if (bind(sd,(struct sockaddr *) &clientaddr, sizeof(clientaddr)) < 0) {
         perror("bind socket");
         exit(EXIT_FAILURE);
     }
     printf("[Datagram_Client]: Bind effettuato\n");
 
-    // TODO LOGICA DEL PROGRAMMA
+    char richiesta[32];
+
+    printf("\n----------------------------------------\nFUNZIONE, EOF per terminare: ");
+    while (gets(richiesta)) {   
+        
+        // TODO LOGICA DEL CLIENT
+
+        printf("\n----------------------------------------\nFUNZIONE, EOF per terminare: ");
+    }
 
     close(sd);
     printf("[Datagram_Client]: Termino\n");

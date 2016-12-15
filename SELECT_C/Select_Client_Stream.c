@@ -60,7 +60,15 @@ int main(int argc, char *argv[]) {
     }
     printf("[Stream_Client]: Connect ok\n");
 
-    // TODO LOGICA DEL PROGRAMMA
+    char richiesta[32];
+
+    printf("\n----------------------------------------\nFUNZIONE, EOF per terminare: ");
+    while (gets(richiesta)) {   
+        
+        // TODO LOGICA DEL CLIENT
+
+        printf("\n----------------------------------------\nFUNZIONE, EOF per terminare: ");
+    }
 
     close(sd);
     printf("[Stream_Client]: Termino\n");

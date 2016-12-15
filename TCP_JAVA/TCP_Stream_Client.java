@@ -31,10 +31,6 @@ public class TCP_Stream_Client {
             System.exit(1);
         }
 
-        // TODO VARIABILI PER LA LOGICA DEL PROGRAMMA
-        String richiesta = null;
-        String esito = null;
-
         // dichiarazione e creazione socket
         Socket socket = null;
         DataInputStream inSock = null;
@@ -57,33 +53,20 @@ public class TCP_Stream_Client {
             System.exit(1);
         }
 
-        // invio richiesta e chiusura socket lato output
-        try {
-            // TODO INTERAZIONE CON L'UTENTE E INVIO RICHIESTA (esempio stringa)
-            outSock.writeUTF(richiesta);
-            socket.shutdownOutput();
-            System.out.println("Trasmissione terminata.");
-        } catch (IOException e) {
-            System.out.println("Errore durante l'invio della richiesta: ");
-            e.printStackTrace();
-            socket.close();
-            System.exit(1);
-        }
+        BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+        String richiesta;
 
-        // ricezione esito e chiusura socket lato input
+        // comunicazione
         try {
-            // TODO RICEZIONE ESITO (esempio stringa)
-            esito = inSock.readUTF();
-            System.out.println("Esito: " + esito);
-            socket.shutdownInput();
-            System.out.println("Terminata chiusura della socket: " + socket);
-        } catch (SocketTimeoutException ste) {
-            System.out.println("Timeout scattato: ");
-            ste.printStackTrace();
-            socket.close();
-            System.exit(1);
+            System.out.print("\n------------------------------------\nRICHIESTA, EOF per terminare: ");
+            while ((richiesta = stdIn.readLine()) != null) {
+
+                // TODO LOGICA DEL CLIENT
+
+                System.out.print("\n------------------------------------\nRICHIESTA, EOF per terminare: ");
+            } 
         } catch (IOException e) {
-            System.out.println("Errore durante la ricezione dell'esito: ");
+            System.out.println("Errore durante la cominicazione: ");
             e.printStackTrace();
             socket.close();
             System.exit(1);
