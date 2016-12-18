@@ -1,5 +1,5 @@
 .PHONY: all
-all: server udp tcp
+all: server datagram stream
 
 server:
 	gcc Select_Server.c -o server
@@ -11,4 +11,4 @@ stream:
 	gcc Select_Client_Stream.c -o stream_client
 
 clean:
-	rm server udp_client tcp_client
+	rm server datagram_client stream_client

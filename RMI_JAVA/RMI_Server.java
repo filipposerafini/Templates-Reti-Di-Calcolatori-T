@@ -3,6 +3,7 @@
 // RMI_Server.java
 
 import java.rmi.*;
+import java.rmi.server.UnicastRemoteObject;
 
 public class RMI_Server extends UnicastRemoteObject implements RMI_InterfaceFile {
 	private static final long serialVersionUID = 1L;
