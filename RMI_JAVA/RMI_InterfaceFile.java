@@ -6,6 +6,7 @@ import java.rmi.*;
 
 public interface RMI_InterfaceFile extends Remote {
 	
-	// TODO funzione(argomenti) throws RemoteException;
+	// TODO funzione1(argomenti) throws RemoteException;
+	// TODO funzione2(argomenti) throws RemoteException;
 
 }

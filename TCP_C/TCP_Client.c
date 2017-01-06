@@ -16,7 +16,7 @@
 int main(int argc, char *argv[]) {
     struct hostent *host;
     struct sockaddr_in servaddr;
-    int port, sd, nread;
+    int port, sd;
 
     // controllo argomenti
     if (argc != 3) {
@@ -41,30 +41,31 @@ int main(int argc, char *argv[]) {
     servaddr.sin_addr.s_addr=((struct in_addr*) (host->h_addr))->s_addr;
     servaddr.sin_port = htons(atoi(argv[2]));
 
-    char richiesta[32];
+    // creazione socket stream
+    sd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sd < 0) {
+        perror("apertura socket");
+        exit(EXIT_FAILURE);
+    }
+    printf("[TCP_Client]: Creata la socket %d\n", sd);
+
+    if (connect(sd,(struct sockaddr *) &servaddr, sizeof(struct sockaddr)) < 0) {
+        perror("connect");
+        exit(EXIT_FAILURE);
+    }
+    printf("[TCP_Client]: Connect ok\n");
+
+    char cmd[32];
 
     printf("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
-    while (gets(richiesta)) {
-
-        // creazione socket stream
-        sd = socket(AF_INET, SOCK_STREAM, 0);
-        if (sd < 0) {
-            perror("apertura socket");
-            exit(EXIT_FAILURE);
-        }
-        printf("[TCP_Client]: Creata la socket %d\n", sd);
-
-        if (connect(sd,(struct sockaddr *) &servaddr, sizeof(struct sockaddr)) < 0) {
-            perror("connect");
-            exit(EXIT_FAILURE);
-        }
-        printf("[TCP_Client]: Connect ok\n");
+    while (gets(cmd)) {
 
         // TODO LOGICA DEL CLIENT
 
-    printf("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
+        printf("\n----------------------------------------\nRICHIESTA, EOF per terminare: ");
     }
 
+    close(sd);
     printf("[TCP_Client]: Termino\n");
     exit(EXIT_SUCCESS);
 }

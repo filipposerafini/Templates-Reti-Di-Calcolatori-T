@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.rmi.Naming;
 
-
 public class RMI_Client {
 
     // avvio del client RMI
@@ -17,31 +16,35 @@ public class RMI_Client {
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
         // controllo argomenti
-        if(args.length != 1){
+        if (args.length != 1) {
             System.out.println("Usage: RMI_Client serverAddress");
             System.exit(1);
         }
         registryHost = args[0];
 
         // connessione al servizio RMI remoto
-        try{
+        try {
             String completeName = "//" + registryHost + ":" + REGISTRYPORT + "/" + serviceName;
             RMI_InterfaceFile serverRMI = (RMI_InterfaceFile) Naming.lookup(completeName);
             System.out.println("[RMI_Client]: Service \"" + serviceName + "\" connected");
 
             String command;
-            System.out.print("\n----------------------------------------\nCMD - FUNZIONE, EOF per terminare: ");
+            System.out.print("\n----------------------------------------\nCMD1 - FUNZIONE1, CMD2 - FUNZIONE2, EOF per terminare: ");
             while ((command = stdIn.readLine()) != null) {
-                if (command.equals("CMD")) {
+                if (command.equals("CMD1")) {
 
-                    // TODO LOGICA CLIENT
+                    // TODO LOGICA FUNZIONE1
+
+                } else if (command.equals("CMD2")) {
+
+                    // TODO LOGICA FUNZIONE2
 
                 } else 
                     System.out.println("Comando non valido");
-                System.out.print("\n----------------------------------------\nCMD - FUNZIONE, EOF per terminare: ");
+                System.out.print("\n----------------------------------------\nCMD1 - FUNZIONE1, CMD2 - FUNZIONE2, EOF per terminare: ");
             }
 
-        }	catch(Exception e){
+        } catch(Exception e){
             e.printStackTrace();
             System.exit(1);
         }

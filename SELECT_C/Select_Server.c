@@ -18,22 +18,7 @@
 
 #define max(a,b) ((a) > (b) ? (a) : (b))
 
-int conta_file (char *name) {
-
-    DIR *dir;
-    struct dirent * dd;
-    int count = 0;
-    dir = opendir (name);
-
-    while ((dd = readdir(dir)) != NULL) {
-        printf("File: %s\n", dd->d_name);
-        count++;
-    }
-
-    printf("Total count calculated: %d\n", count);
-    closedir (dir);
-    return count;
-}
+// TODO DEFINIZIONE STRUTTURA DATI
 
 void gestore(int signo) {
     int stato;
@@ -121,6 +106,9 @@ int main(int argc, char **argv) {
     FD_ZERO(&rset);
     maxfdp1 = max(listenfd, udpfd) + 1;
     printf("[Select_Server]: settaggio maschera\n");
+
+    // inizializzazione struttura dati
+    // TODO
 
     for (;;) {
         FD_SET(listenfd, &rset);

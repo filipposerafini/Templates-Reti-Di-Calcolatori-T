@@ -1,0 +1,36 @@
+// TRASFERISCI FILE A BYTE
+static void trasferisci_N_byte_file_binario(DataInputStream src, DataOutputStream dest, long daTrasferire) throws IOException {
+	int cont=0;
+	int buffer=0;
+	try {
+		while (cont < daTrasferire) {
+			buffer=src.read();
+			dest.write(buffer);
+			cont++;
+		}
+		dest.flush();
+		System.out.println("Byte trasferiti: " + cont);
+	} catch (EOFException e) {
+		System.out.println("Problemi, i seguenti: ");
+		e.printStackTrace();
+	}
+}
+
+
+// CONTA FILE
+int conta_file (char *name) {
+
+    DIR *dir;
+    struct dirent * dd;
+    int count = 0;
+    dir = opendir (name);
+
+    while ((dd = readdir(dir)) != NULL) {
+        printf("File: %s\n", dd->d_name);
+        count++;
+    }
+
+    printf("Total count calculated: %d\n", count);
+    closedir (dir);
+    return count;
+}

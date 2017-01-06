@@ -13,9 +13,6 @@ public class RMI_Server extends UnicastRemoteObject implements RMI_InterfaceFile
 		super();
 	}
 
-	// implementazione metodi interfaccia
-    // TODO
-
 	//main
 	public static void main(String[] args) {
 		final int REGISTRYPORT = 1099;
@@ -34,4 +31,8 @@ public class RMI_Server extends UnicastRemoteObject implements RMI_InterfaceFile
 			System.exit(1);
 		}
 	}
+
+	// implementazione metodi interfaccia
+    // TODO
+
 }

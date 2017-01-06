@@ -1,11 +1,11 @@
 // Filippo Serafini
 // 0000723678
-// TCP_Stream_Client.java
+// TCP_Client.java
 
 import java.net.*;
 import java.io.*;
 
-public class TCP_Stream_Client {
+public class TCP_Client {
 
     public static void main(String[] args) throws IOException {
 
@@ -18,7 +18,7 @@ public class TCP_Stream_Client {
                 addr = InetAddress.getByName(args[0]);
                 port = Integer.parseInt(args[1]);
             } else {
-                System.out.println("Usage: java TCP_Stream_Client serverIP serverPort");
+                System.out.println("Usage: java TCP_Client serverIP serverPort");
                 System.exit(1);
             }
         } catch (UnknownHostException e) {
@@ -26,7 +26,7 @@ public class TCP_Stream_Client {
             e.printStackTrace();
             System.exit(1);
         } catch (NumberFormatException e) {
-            System.out.println("Usage: java TCP_Stream_Client serverIP serverPort");
+            System.out.println("Usage: java TCP_Client serverIP serverPort");
             System.out.println("serverPort deve essere un intero");
             System.exit(1);
         }
@@ -54,12 +54,12 @@ public class TCP_Stream_Client {
         }
 
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-        String richiesta;
+        String cmd;
 
         // comunicazione
         try {
             System.out.print("\n------------------------------------\nRICHIESTA, EOF per terminare: ");
-            while ((richiesta = stdIn.readLine()) != null) {
+            while ((cmd = stdIn.readLine()) != null) {
 
                 // TODO LOGICA DEL CLIENT
 

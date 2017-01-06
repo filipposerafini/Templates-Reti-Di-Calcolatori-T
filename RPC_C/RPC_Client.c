@@ -35,7 +35,7 @@ void main (int argc, char *argv[]) {
             // TODO LOGICA FUNZIONE
 
             // Invocazione remota
-            // ris = funzione_uno(&input, cl);
+            // res = funzione_uno(&input, cl);
 
             if (res == NULL) {
                 clnt_perror(cl, host);
