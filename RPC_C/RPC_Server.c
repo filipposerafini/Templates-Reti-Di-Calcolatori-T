@@ -22,7 +22,7 @@ void inizializza() {
     // TODO INIZIALIZZAZIONE STRUTTURA DATI
 
     inizializzato = 1;
-    print("Terminata inizializzazione struttura dati!\n");
+    printf("Terminata inizializzazione struttura dati!\n");
 }
 
 // TODO IMPLEMENTAZIONE FUNZIONI

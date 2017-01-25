@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
     printf("[Datagram_Client]: Creata socket %d\n", sd);
     
     // bind della socket
-        if (bind(sd,(struct sockaddr *) &clientaddr, sizeof(clientaddr)) < 0) {
+    if (bind(sd,(struct sockaddr *) &clientaddr, sizeof(clientaddr)) < 0) {
         perror("bind socket");
         exit(EXIT_FAILURE);
     }

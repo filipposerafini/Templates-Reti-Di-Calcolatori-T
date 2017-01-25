@@ -34,3 +34,55 @@ int conta_file (char *name) {
     closedir (dir);
     return count;
 }
+
+// DATA DA INPUT JAVA
+
+System.out.print("Inserisci la data:\nGiorno: ");
+try {
+    giorno = Integer.parseInt(stdIn.readLine());
+    if (giorno < 1 || giorno > 31)
+        throw new NumberFormatException;
+    
+} catch (NumberFormatException e) {
+    System.out.println("Giorno deve essere un intero [1 - 31]")
+}
+System.out.print("Mese: ");
+try {
+    mese = Integer.parseInt(stdIn.readLine());
+    if (mese < 1 || mese > 12)
+        throw new NumberFormatException;
+    
+} catch (NumberFormatException e) {
+    System.out.println("Mese deve essere un intero [1 - 12]")
+}
+System.out.print("Anno: ");
+try {
+    anno = Integer.parseInt(stdIn.readLine());
+    if (anno < 0)
+        throw new NumberFormatException;
+    
+} catch (NumberFormatException e) {
+    System.out.println("Anno deve essere un intero positivo")
+}
+
+// ORA DA INPUT JAVA
+
+System.out.print("Inserisci l'orario:\nOra: ");
+try {
+    ora = Integer.parseInt(stdIn.readLine());
+    if (ora < 0 || ora > 23)
+        throw new NumberFormatException;
+    
+} catch (NumberFormatException e) {
+    System.out.println("Ora deve essere un intero [0 - 23]")
+}
+System.out.print("Minuti: ");
+try {
+    minuti = Integer.parseInt(stdIn.readLine());
+E
+    if (minuti < 0 || minuti > 59)
+        throw new NumberFormatException;
+    
+} catch (NumberFormatException e) {
+    System.out.println("Minuti devono essere un intero [0 - 59]")
+}
